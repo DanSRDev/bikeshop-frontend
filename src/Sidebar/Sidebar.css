@@ -1,0 +1,9 @@
+.Sidebar {
+    width: 320px;
+    height: 100%;
+    background-color: #031626;
+    color: white;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+}
