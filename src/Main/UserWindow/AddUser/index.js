@@ -1,11 +1,11 @@
+import { TextField } from "@mui/material";
 import React from "react";
 import './AddUser.css';
 
 function AddUser () {
     return (
-        <>
-        <p>add</p>
-        </>
+        <form>
+            <TextField label="Dni de usuario" variant="filled" />        </form>
     )
 }
 

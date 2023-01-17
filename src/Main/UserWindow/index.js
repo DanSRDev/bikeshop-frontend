@@ -32,11 +32,11 @@ function UserWindow() {
         <section className="UserWindow">
             <h1 className="windowTitle">USUARIOS</h1>
             <OptionList>
-                <OptionButton textButton='Ver empleados' active={viewActive} setActive={setViewActive} setInactive={setInactive}/>
-                <OptionButton textButton='Buscar empleado' active={searchActive} setActive={setSearchActive} setInactive={setInactive}/>
-                <OptionButton textButton='Agregar empleados' active={addActive} setActive={setAddActive} setInactive={setInactive}/>
-                <OptionButton textButton='Modificar empleados' active={modifyActive} setActive={setModifyActive} setInactive={setInactive}/>
-                <OptionButton textButton='Eliminar empleados' active={deletective} setActive={setDeleteActive} setInactive={setInactive}/>
+                <OptionButton textButton='Ver usuarios' active={viewActive} setActive={setViewActive} setInactive={setInactive}/>
+                <OptionButton textButton='Buscar usuario' active={searchActive} setActive={setSearchActive} setInactive={setInactive}/>
+                <OptionButton textButton='Agregar usuario' active={addActive} setActive={setAddActive} setInactive={setInactive}/>
+                <OptionButton textButton='Modificar usuario' active={modifyActive} setActive={setModifyActive} setInactive={setInactive}/>
+                <OptionButton textButton='Eliminar usuario' active={deletective} setActive={setDeleteActive} setInactive={setInactive}/>
             </OptionList>
             <Form>
                 {viewActive && <ViewUsers/>}

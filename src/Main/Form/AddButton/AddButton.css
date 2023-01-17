@@ -1,0 +1,19 @@
+.AddButton {
+    width: 290px;
+    height: 90px;
+    background-color: #031626;
+    border: 2px solid #F2F2F2;
+    border-radius: 24px;
+    color: #F2F2F2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.AddButton:hover {
+    cursor: pointer;
+}
+
+.AddButton p {
+    font-size: 24px;
+}
