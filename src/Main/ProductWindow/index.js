@@ -5,7 +5,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Box } from "@mui/system";
 import axios from "axios";
-import "./ProductWindow.css";
+import "../Window.css";
 
 function ProductWindow() {
 
@@ -166,7 +166,7 @@ function ProductWindow() {
   }, [])
 
   return (
-    <section className="ProductWindow">
+    <section className="Window">
 
       <h1 className="windowTitle">PRODUCTOS</h1>
 
@@ -207,8 +207,8 @@ function ProductWindow() {
         </Table>
       </TableContainer>
 
-      <div className="ButtonSection" onClick={() => {toggleAddModal()}}>
-        <AddButton addText='Agregar Producto'/>
+      <div className="ButtonSection">
+        <AddButton addText='Agregar Producto' click={() => {toggleAddModal()}}/>
       </div>
 
       <Modal

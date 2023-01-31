@@ -8,6 +8,7 @@ import { Main } from './Main';
 import { RoleWindow } from './Main/RoleWindow';
 import { UserWindow } from './Main/UserWindow';
 import { ProductWindow } from './Main/ProductWindow';
+import { CategoryWindow } from './Main/CategoryWindow';
 
 import './App.css';
 
@@ -19,13 +20,16 @@ function App() {
     roleActive,
     setRoleActive,
     productActive,
-    setProductActive
+    setProductActive,
+    categoryActive,
+    setCategoryActive
   } = useWindow();
 
   function setFalseWindows() {
     setUserActive(false);
     setRoleActive(false);
     setProductActive(false);
+    setCategoryActive(false);
   }
 
   return (
@@ -34,15 +38,18 @@ function App() {
         <SidebarButton text='Usuarios' window={userActive} setWindow={setUserActive} setFalse={setFalseWindows}/>
         <SidebarButton text='Roles' window={roleActive} setWindow={setRoleActive} setFalse={setFalseWindows}/>
         <SidebarButton text='Productos' window={productActive} setWindow={setProductActive} setFalse={setFalseWindows}/>
-        {/* <SidebarButton text='Categorias' />
+        <SidebarButton text='Categorias' window={categoryActive} setWindow={setCategoryActive} setFalse={setFalseWindows}/>
+        {/*
         <SidebarButton text='Proveedores' />
         <SidebarButton text='Clientes' />
-        <SidebarButton text='Ventas' /> */}
+        <SidebarButton text='Ventas' /> 
+        */}
       </Sidebar>
       <Main>
         {userActive && <UserWindow />}
         {roleActive && <RoleWindow />}
         {productActive && <ProductWindow />}
+        {categoryActive && <CategoryWindow />}
       </Main>
       
     </div>

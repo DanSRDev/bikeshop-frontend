@@ -3,7 +3,7 @@ import "./AddButton.css";
 
 function AddButton(props) {
   return (
-    <div className='AddButton'>
+    <div className='AddButton' onClick={props.click}>
       <p>{props.addText}</p>
     </div>
   );
