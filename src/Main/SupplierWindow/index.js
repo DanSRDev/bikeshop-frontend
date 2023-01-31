@@ -7,53 +7,54 @@ import { Box } from "@mui/system";
 import axios from "axios";
 import "../Window.css";
 
-function CategoryWindow() {
+function SupplierWindow() {
 
-  const url = 'http://localhost:3001/api/v1/categories';
+  const url = 'http://localhost:3001/api/v1/suppliers';
 
-  const [categories, setCategories] = React.useState([]);
+  const [suppliers, setSuppliers] = React.useState([]);
 
   const [addModal, setAddModal] = React.useState(false);
   const [updateModal, setUpdateModal] = React.useState(false);
   const [deleteModal, setDeleteModal] = React.useState(false);
 
-  const [dataCategory, setDataCategory] = React.useState({
+  const [dataSupplier, setDataSupplier] = React.useState({
     id: '',
     name: '',
+    phone: ''
   });
 
-  async function getCategories() {
+  async function getSuppliers() {
     try {
       const res = await axios.get(url);
-      setCategories(res.data);
+      setSuppliers(res.data);
     } catch (error) {
       alert("Error de conexion");
     }
   }
 
-  async function createCategory(data) {
+  async function createSupplier(data) {
     try {
       await axios.post(url, data);
-      getCategories();
+      getSuppliers();
       toggleAddModal();
     } catch (error) {
       alert(error.response.data.message);
     }
   }
 
-  async function updateCategory(id, data) {
+  async function updateSupplier(id, data) {
     try {
       await axios.patch(`${url}/${id}`, data);
-      getCategories();
+      getSuppliers();
       toggleUpdateModal();
     } catch (error) {
       alert(error.response.data.message);
     }
   }
 
-  async function deleteCategory(id) {
+  async function deleteSupplier(id) {
     await axios.delete(`${url}/${id}`);
-    setCategories(categories.filter(product => product.id !== dataCategory.id));
+    setSuppliers(suppliers.filter(product => product.id !== dataSupplier.id));
     toggleDeleteModal();
   }
   
@@ -74,43 +75,47 @@ function CategoryWindow() {
 
   const handleChange = (e) => {
     const {name, value} = e.target;
-    setDataCategory(prevState => ({
+    setDataSupplier(prevState => ({
       ...prevState,
       [name]: value
     }));
   }
 
-  const bodyAddCategory = (
+  const bodyAddSupplier = (
     <Box sx={theme}>
-      <h3>Agregar nueva categoria</h3>
-      <TextField name="name" label="Nombre de la categoria" sx={{width: '100%'}} onChange={handleChange}/>
+      <h3>Agregar nuevo proveedor</h3>
+      <TextField name="name" label="Nombre del proveedor" sx={{width: '100%'}} onChange={handleChange}/>
+      <TextField name="phone" label="Celular del proveedor" sx={{width: '100%'}} onChange={handleChange}/>
       <div align="right">
-        <Button color="primary" onClick={()=>createCategory({
-          name: dataCategory.name, 
+        <Button color="primary" onClick={()=>createSupplier({
+          name: dataSupplier.name,
+          phone: dataSupplier.phone,
         })}>Insertar</Button>
         <Button onClick={()=>toggleAddModal()}>Cancelar</Button>
       </div>
     </Box>
   );
   
-  const bodyUpdateCategory = (
+  const bodyUpdateSupplier = (
     <Box sx={theme}>
-      <h3>Editar categoria</h3>
-      <TextField name="name" label="Nombre de la categoria" sx={{width: '100%'}} onChange={handleChange} value={`${dataCategory.name}`}/>
+      <h3>Editar proveedor</h3>
+      <TextField name="name" label="Nombre del proveedor" sx={{width: '100%'}} onChange={handleChange} value={`${dataSupplier.name}`}/>
+      <TextField name="phone" label="Celular del proveedor" sx={{width: '100%'}} onChange={handleChange} value={`${dataSupplier.phone}`}/>
       <div align="right">
-        <Button color="primary" onClick={()=>updateCategory(dataCategory.id, {
-            name: dataCategory.name,
+        <Button color="primary" onClick={()=>updateSupplier(dataSupplier.id, {
+            name: dataSupplier.name,
+            phone: dataSupplier.phone,
           })}>Editar</Button>
         <Button onClick={()=>toggleUpdateModal()}>Cancelar</Button>
       </div>
     </Box>
   );
 
-  const bodyDeleteCategory = (
+  const bodyDeleteSupplier = (
     <Box sx={theme}>
-      <h3>¿Estas seguro que deseas eliminar la categoria "<b>{dataCategory.name}</b>"?</h3>
+      <h3>¿Estas seguro que deseas eliminar el proveedor "<b>{dataSupplier.name}</b>"?</h3>
       <div align="right">
-        <Button color="secondary" onClick={()=>deleteCategory(dataCategory.id)}>Eliminar</Button>
+        <Button color="secondary" onClick={()=>deleteSupplier(dataSupplier.id)}>Eliminar</Button>
         <Button onClick={()=>toggleDeleteModal()}>Cancelar</Button>
       </div>
     </Box>
@@ -129,13 +134,13 @@ function CategoryWindow() {
   }
 
   React.useEffect(() => {
-    getCategories();
+    getSuppliers();
   }, [])
 
   return (
     <section className="Window">
 
-      <h1 className="windowTitle">CATEGORIAS</h1>
+      <h1 className="windowTitle">PROVEEDORES</h1>
 
       <TableContainer className="TableContainer">
         <Table>
@@ -143,19 +148,21 @@ function CategoryWindow() {
             <TableRow className="TableRow">
               <TableCell align="center"><b>Id</b></TableCell>
               <TableCell align="center"><b>Nombre</b></TableCell>
+              <TableCell align="center"><b>Celular</b></TableCell>
               <TableCell align="center"><b>Acciones</b></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {categories.map((category) => {
+            {suppliers.map((supplier) => {
               return (
-                <TableRow key={category.id}>
-                  <TableCell align="center">{category.id}</TableCell>
-                  <TableCell align="center">{category.name}</TableCell>
+                <TableRow key={supplier.id}>
+                  <TableCell align="center">{supplier.id}</TableCell>
+                  <TableCell align="center">{supplier.name}</TableCell>
+                  <TableCell align="center">{supplier.phone}</TableCell>
                   <TableCell align="center">
-                    <EditIcon onClick={() => {setDataCategory(category); toggleUpdateModal()}} sx={{cursor: 'pointer'}}/>
+                    <EditIcon onClick={() => {setDataSupplier(supplier); toggleUpdateModal()}} sx={{cursor: 'pointer'}}/>
                     &nbsp;&nbsp;&nbsp;
-                    <DeleteIcon onClick={() => {setDataCategory(category); toggleDeleteModal()}} sx={{cursor: 'pointer'}}/>
+                    <DeleteIcon onClick={() => {setDataSupplier(supplier); toggleDeleteModal()}} sx={{cursor: 'pointer'}}/>
                   </TableCell>
                 </TableRow>
               );
@@ -165,32 +172,32 @@ function CategoryWindow() {
       </TableContainer>
 
       <div className="ButtonSection">
-        <AddButton addText='Agregar Categoria' click={() => {toggleAddModal()}}/>
+        <AddButton addText='Agregar Proveedor' click={() => {toggleAddModal()}}/>
       </div>
 
       <Modal
         open={addModal}
         onClose={toggleAddModal}
       >
-        {bodyAddCategory}
+        {bodyAddSupplier}
       </Modal>
 
       <Modal
         open={updateModal}
         onClose={toggleUpdateModal}
       >
-        {bodyUpdateCategory}
+        {bodyUpdateSupplier}
       </Modal>
 
       <Modal
         open={deleteModal}
         onClose={toggleDeleteModal}
       >
-        {bodyDeleteCategory}
+        {bodyDeleteSupplier}
       </Modal>
 
     </section>
   );
 }
 
-export { CategoryWindow };
+export { SupplierWindow };

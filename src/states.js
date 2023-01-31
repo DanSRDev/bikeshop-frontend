@@ -6,6 +6,7 @@ function useWindow() {
     const [ roleActive, setRoleActive ] = React.useState(false);
     const [ productActive, setProductActive ] = React.useState(false);
     const [ categoryActive, setCategoryActive ] = React.useState(false);
+    const [ supplierActive, setSupplierActive ] = React.useState(false);
     
     return { 
         userActive, 
@@ -15,7 +16,9 @@ function useWindow() {
         productActive, 
         setProductActive,
         categoryActive,
-        setCategoryActive
+        setCategoryActive,
+        supplierActive,
+        setSupplierActive
     };
 }
 
