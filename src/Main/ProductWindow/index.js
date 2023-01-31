@@ -28,14 +28,22 @@ function ProductWindow() {
   });
 
   async function getProducts() {
-    const res = await axios.get(url);
-    setProducts(res.data);
+    try {
+      const res = await axios.get(url);
+      setProducts(res.data);
+    } catch (error) {
+      alert("Error de conexion");
+    }
   }
 
   async function createProduct(data) {
-    await axios.post(url, data);
-    getProducts();
-    toggleAddModal();
+    try {
+      await axios.post(url, data);
+      getProducts();
+      toggleAddModal();
+    } catch (error) {
+      alert(error.response.data.message);
+    }
   }
 
   async function updateProduct(id, data) {
@@ -44,7 +52,7 @@ function ProductWindow() {
       getProducts();
       toggleUpdateModal();
     } catch (error) {
-      console.log(error);
+      alert(error.response.data.message);
     }
   }
 
