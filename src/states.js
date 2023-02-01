@@ -7,18 +7,21 @@ function useWindow() {
     const [ productActive, setProductActive ] = React.useState(false);
     const [ categoryActive, setCategoryActive ] = React.useState(false);
     const [ supplierActive, setSupplierActive ] = React.useState(false);
+    const [ customerActive, setCustomerActive ] = React.useState(false);
     
     return { 
         userActive, 
         setUserActive,
         roleActive,
         setRoleActive,
-        productActive, 
+        productActive,
         setProductActive,
         categoryActive,
         setCategoryActive,
         supplierActive,
-        setSupplierActive
+        setSupplierActive,
+        customerActive,
+        setCustomerActive
     };
 }
 

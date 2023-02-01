@@ -10,6 +10,7 @@ import { UserWindow } from './Main/UserWindow';
 import { ProductWindow } from './Main/ProductWindow';
 import { CategoryWindow } from './Main/CategoryWindow';
 import { SupplierWindow } from './Main/SupplierWindow';
+import { CustomerWindow } from './Main/CustomerWindow';
 
 import './App.css';
 
@@ -25,7 +26,9 @@ function App() {
     categoryActive,
     setCategoryActive,
     supplierActive,
-    setSupplierActive
+    setSupplierActive,
+    customerActive,
+    setCustomerActive
   } = useWindow();
 
   function setFalseWindows() {
@@ -34,6 +37,7 @@ function App() {
     setProductActive(false);
     setCategoryActive(false);
     setSupplierActive(false);
+    setCustomerActive(false);
   }
 
   return (
@@ -44,8 +48,8 @@ function App() {
         <SidebarButton text='Productos' window={productActive} setWindow={setProductActive} setFalse={setFalseWindows}/>
         <SidebarButton text='Categorias' window={categoryActive} setWindow={setCategoryActive} setFalse={setFalseWindows}/>
         <SidebarButton text='Proveedores' window={supplierActive} setWindow={setSupplierActive} setFalse={setFalseWindows}/>
+        <SidebarButton text='Clientes' window={customerActive} setWindow={setCustomerActive} setFalse={setFalseWindows}/>
         {/*
-        <SidebarButton text='Clientes' />
         <SidebarButton text='Ventas' /> 
         */}
       </Sidebar>
@@ -55,6 +59,7 @@ function App() {
         {productActive && <ProductWindow />}
         {categoryActive && <CategoryWindow />}
         {supplierActive && <SupplierWindow />}
+        {customerActive && <CustomerWindow />}
       </Main>
       
     </div>

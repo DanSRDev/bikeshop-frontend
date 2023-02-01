@@ -53,7 +53,7 @@ function CategoryWindow() {
 
   async function deleteCategory(id) {
     await axios.delete(`${url}/${id}`);
-    setCategories(categories.filter(product => product.id !== dataCategory.id));
+    setCategories(categories.filter(category => category.id !== dataCategory.id));
     toggleDeleteModal();
   }
   

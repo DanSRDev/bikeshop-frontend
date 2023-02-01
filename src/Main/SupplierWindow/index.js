@@ -54,7 +54,7 @@ function SupplierWindow() {
 
   async function deleteSupplier(id) {
     await axios.delete(`${url}/${id}`);
-    setSuppliers(suppliers.filter(product => product.id !== dataSupplier.id));
+    setSuppliers(suppliers.filter(supplier => supplier.id !== dataSupplier.id));
     toggleDeleteModal();
   }
   
