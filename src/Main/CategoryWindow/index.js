@@ -1,11 +1,11 @@
 import React from "react";
-import { AddButton } from '../Form/AddButton';
+import { AddButton } from '../AddButton';
 import { Button, Modal, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Box } from "@mui/system";
 import axios from "axios";
-import "../Window.css";
+import "../Main.css";
 
 function CategoryWindow() {
 
