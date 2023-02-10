@@ -11,6 +11,7 @@ import { ProductWindow } from './Main/ProductWindow';
 import { CategoryWindow } from './Main/CategoryWindow';
 import { SupplierWindow } from './Main/SupplierWindow';
 import { CustomerWindow } from './Main/CustomerWindow';
+import { SaleWindow } from './Main/SaleWindow';
 
 import './App.css';
 
@@ -28,7 +29,9 @@ function App() {
     supplierActive,
     setSupplierActive,
     customerActive,
-    setCustomerActive
+    setCustomerActive,
+    saleActive,
+    setSaleActive
   } = useWindow();
 
   function setFalseWindows() {
@@ -38,7 +41,14 @@ function App() {
     setCategoryActive(false);
     setSupplierActive(false);
     setCustomerActive(false);
+    setSaleActive(false);
   }
+
+  const [user, setUser] = React.useState('');
+
+  React.useEffect(() => {
+    setUser('72691164');
+  }, [])
 
   return (
     <div className="App">
@@ -49,9 +59,7 @@ function App() {
         <SidebarButton text='Categorias' window={categoryActive} setWindow={setCategoryActive} setFalse={setFalseWindows}/>
         <SidebarButton text='Proveedores' window={supplierActive} setWindow={setSupplierActive} setFalse={setFalseWindows}/>
         <SidebarButton text='Clientes' window={customerActive} setWindow={setCustomerActive} setFalse={setFalseWindows}/>
-        {/*
-        <SidebarButton text='Ventas' /> 
-        */}
+        <SidebarButton text='Ventas' window={saleActive} setWindow={setSaleActive} setFalse={setFalseWindows}/>
       </Sidebar>
       <Main>
         {userActive && <UserWindow />}
@@ -60,8 +68,8 @@ function App() {
         {categoryActive && <CategoryWindow />}
         {supplierActive && <SupplierWindow />}
         {customerActive && <CustomerWindow />}
+        {saleActive && <SaleWindow user={user}/>}
       </Main>
-      
     </div>
   )
 }

@@ -8,6 +8,7 @@ function useWindow() {
     const [ categoryActive, setCategoryActive ] = React.useState(false);
     const [ supplierActive, setSupplierActive ] = React.useState(false);
     const [ customerActive, setCustomerActive ] = React.useState(false);
+    const [ saleActive, setSaleActive ] = React.useState(false);
     
     return { 
         userActive, 
@@ -21,7 +22,9 @@ function useWindow() {
         supplierActive,
         setSupplierActive,
         customerActive,
-        setCustomerActive
+        setCustomerActive,
+        saleActive,
+        setSaleActive
     };
 }
 
