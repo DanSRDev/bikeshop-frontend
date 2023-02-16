@@ -180,12 +180,16 @@ function SaleWindow(props) {
     if (checkEmptyProduct()) {
       alert('Fill in the fields');
     } else if (await checkProductExists()){
-      createSale({
-        date: date,
-        total: 0,
-        userDni: props.user,
-        customerDni: dataSale.customerDni,
-      })
+      if (checkDiferentProducts()) {
+        createSale({
+          date: date,
+          total: 0,
+          userDni: props.user,
+          customerDni: dataSale.customerDni,
+        })
+      } else {
+        alert('There is a duplicate product');
+      }
     } else {
       alert('The product doesn\'t exists');
     }
@@ -289,6 +293,12 @@ function SaleWindow(props) {
 
   function checkEmptyProduct() {
     return products.some(product => product.productId === '' || product.amount === '');
+  }
+
+  function checkDiferentProducts() {
+    const productIds = products.map(product => product['productId']);
+    const uniqueValues = new Set(productIds);
+    return uniqueValues.size === productIds.length;
   }
 
   function formatDate(saleDate) {
