@@ -148,32 +148,36 @@ function SaleWindow(props) {
     }])
   }
 
+  async function verifySale() {
+    date = new Date();
+    if (checkEmptyProduct()) {
+      alert('Fill in the fields');
+    } else if (await checkProductExists()){
+      createSale({
+        date: date,
+        total: 0,
+        userDni: props.user,
+        customerDni: dataSale.customerDni,
+      })
+    } else {
+      alert('The product doesn\'t exists');
+    }
+  }
+
   const bodyAddSale = (
     <Box sx={theme}>
       <h3>Agregar nueva venta</h3>
-      <TextField required name="customerDni" label="Dni del cliente" sx={{width: '100%'}} onChange={handleChange}/>
+      <TextField name="customerDni" label="Dni del cliente" sx={{width: '100%'}} onChange={handleChange}/>
       <h3>Lista de productos</h3>
       {products.map((product) => (
         <div style={{display: 'flex', gap: '10px'}} key={product.id}>
-          <TextField required name="productId" label="Id del producto" sx={{width: '100%'}} onChange={e => handleChangeProducts(e, product.id)}/>
-          <TextField required name="amount" label="Cantidad" sx={{width: '100%'}} onChange={e => handleChangeProducts(e, product.id)}/>
+          <TextField name="productId" label="Id del producto" sx={{width: '100%'}} onChange={e => handleChangeProducts(e, product.id)}/>
+          <TextField name="amount" label="Cantidad" sx={{width: '100%'}} onChange={e => handleChangeProducts(e, product.id)}/>
         </div>
       ))}
       <Button onClick={()=>addProduct()}>Agregar otro producto</Button>
       <div align="right">
-        <Button color="primary" onClick={()=>{
-          date = new Date();
-          if (checkEmptyProduct()) {
-            alert('Fill in the fields');
-          } else {
-            createSale({
-              date: date,
-              total: 0,
-              userDni: props.user,
-              customerDni: dataSale.customerDni,
-            })
-          }
-        }}>Insertar</Button>
+        <Button color="primary" onClick={verifySale}>Insertar</Button>
         <Button onClick={()=>toggleAddModal()}>Cancelar</Button>
       </div>
     </Box>
@@ -246,8 +250,32 @@ function SaleWindow(props) {
     });
   }
 
+  async function checkProductExists() {
+    try {
+      const res = await axios.get('http://localhost:3001/api/v1/products');
+      const dataProducts = res.data;
+      return (products.every(product => dataProducts.some(data => data.id === parseInt(product.productId))));
+    } catch (error) {
+      alert("Error de conexion");
+    }
+  }
+
   function checkEmptyProduct() {
     return products.some(product => product.productId === '' || product.amount === '');
+  }
+
+  function formatDate(saleDate) {
+    const date = new Date(saleDate);
+    const dia = date.getDate().toString().padStart(2, '0'); 
+    const mes = (date.getMonth() + 1).toString().padStart(2, '0'); 
+    const anio = date.getFullYear().toString(); 
+    const hora = date.getHours().toString().padStart(2, '0'); 
+    const minutos = date.getMinutes().toString().padStart(2, '0'); 
+    const segundos = date.getSeconds().toString().padStart(2, '0'); 
+    
+    const fechaFormateada = `${dia}/${mes}/${anio} ${hora}:${minutos}:${segundos}`;
+    
+    return fechaFormateada;
   }
 
 
@@ -277,7 +305,7 @@ function SaleWindow(props) {
               return (
                 <TableRow key={sale.id}>
                   <TableCell align="center">{sale.id}</TableCell>
-                  <TableCell align="center">{sale.date}</TableCell>
+                  <TableCell align="center">{formatDate(sale.date)}</TableCell>
                   <TableCell align="center">{sale.userDni}</TableCell>
                   <TableCell align="center">{sale.customerDni}</TableCell>
                   <TableCell align="center">{sale.total}</TableCell>
