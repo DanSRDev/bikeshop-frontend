@@ -38,11 +38,38 @@ function SaleWindow(props) {
   async function getSales() {
     try {
       const res = await axios.get(url);
-      setSales(res.data);
+      const mappedSales = await Promise.all(
+        res.data.map(async sale => {
+          const total = await getTotal(sale.id)
+          return {
+            ...sale,
+            total
+          }
+        })
+      );
+      setSales(mappedSales.flat());
     } catch (error) {
       alert("Error de conexion");
     }
   }
+
+  async function getTotal(id) {
+    try {
+      const res = await axios.get(`${url}/${id}`);
+      const items = res.data.items;
+      const dataItems = items.map((item) => {
+        return {
+          price: item.price,
+          amount: item.SaleProduct.amount
+        };
+      });
+      const total = dataItems.reduce((sum, item) => sum + item.price*item.amount, 0);
+      return total;
+    } catch (error) {
+      return('error');
+    }
+  }
+
 
   async function getItems(id) {
     try {
@@ -277,7 +304,6 @@ function SaleWindow(props) {
     
     return fechaFormateada;
   }
-
 
   React.useEffect(() => {
     getSales();
