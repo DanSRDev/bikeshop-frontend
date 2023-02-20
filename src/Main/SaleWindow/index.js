@@ -11,6 +11,7 @@ function SaleWindow(props) {
 
   const url = 'http://localhost:3001/api/v1/sales';
   const urlItem = 'http://localhost:3001/api/v1/sales/add-item';
+  const urlUser = `http://localhost:3001/api/v1/users/${props.user}`;
 
   const [sales, setSales] = React.useState([]);
 
@@ -114,6 +115,18 @@ function SaleWindow(props) {
     }
   }
 
+  async function updateUserSales() {
+    try {
+      const user = await axios.get(urlUser);
+      const sales = user.data.sales + 1;
+      await axios.patch(`${urlUser}`, {
+        sales: sales
+      });
+    } catch (error) {
+      alert(error.response.data.message);
+    }
+  }
+
   async function updateSale(id, data) {
     try {
       await axios.patch(`${url}/${id}`, data);
@@ -186,6 +199,7 @@ function SaleWindow(props) {
           userDni: props.user,
           customerDni: dataSale.customerDni,
         })
+        updateUserSales();
       } else {
         alert('There is a duplicate product');
       }
@@ -217,7 +231,10 @@ function SaleWindow(props) {
     <Box sx={theme}>
       <h3>Editar venta</h3>
       <TextField disabled name="date" label="Fecha de la venta" sx={{width: '100%'}} onChange={handleChange} value={`${formatDate(dataSale.date)}`}/>
-      <TextField name="customerDni" label="Dni del cliente" sx={{width: '100%'}} onChange={handleChange} value={`${dataSale.customerDni}`}/>
+      <div style={{display: 'flex', gap: '10px'}} >
+        <TextField disabled name="userDni" label="Dni del usuario" sx={{width: '100%'}} onChange={handleChange} value={`${dataSale.userDni}`}/>
+        <TextField name="customerDni" label="Dni del cliente" sx={{width: '100%'}} onChange={handleChange} value={`${dataSale.customerDni}`}/>
+      </div>
       <h3>Lista de productos</h3>
       {products.map((product) => (
         <div style={{display: 'flex', gap: '10px'}} key={product.id}>

@@ -125,7 +125,7 @@ function UserWindow() {
         <TextField name="password" label="Contraseña" sx={{width: '100%'}} onChange={handleChange} value={`${dataUser.password}`}/>
       </div>
       <div style={{display: 'flex', gap: '10px'}}>
-        <TextField name="sales" label="Cantidad de ventas" sx={{width: '100%'}} onChange={handleChange} value={`${dataUser.sales}`}/>
+        <TextField disabled name="sales" label="Cantidad de ventas" sx={{width: '100%'}} onChange={handleChange} value={`${dataUser.sales}`}/>
         <TextField name="roleId" label="Id de Rol del usuario" sx={{width: '100%'}} onChange={handleChange} value={`${dataUser.roleId}`}/>
       </div>
       <div align="right">
