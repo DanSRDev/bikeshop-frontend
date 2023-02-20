@@ -149,6 +149,7 @@ function CustomerWindow() {
 
   function toggleAddModal() {
     setAddModal(!addModal);
+    restartDataCustomer();
   }
 
   function toggleUpdateModal() {
@@ -157,6 +158,15 @@ function CustomerWindow() {
 
   function toggleDeleteModal() {
     setDeleteModal(!deleteModal);
+  }
+
+  function restartDataCustomer() {
+    setDataCustomer({
+      dni: '',
+      lastName: '',
+      firstName: '',
+      ruc: '',
+    });
   }
 
   React.useEffect(() => {

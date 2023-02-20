@@ -118,6 +118,7 @@ function RoleWindow() {
 
   function toggleAddModal() {
     setAddModal(!addModal);
+    restartDataRole();
   }
 
   function toggleUpdateModal() {
@@ -126,6 +127,13 @@ function RoleWindow() {
 
   function toggleDeleteModal() {
     setDeleteModal(!deleteModal);
+  }
+
+  function restartDataRole() {
+    setDataRole({
+      id: '',
+      name: ''
+    });
   }
 
   React.useEffect(() => {

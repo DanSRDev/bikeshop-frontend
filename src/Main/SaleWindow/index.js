@@ -183,7 +183,6 @@ function SaleWindow(props) {
       if (checkDiferentProducts()) {
         createSale({
           date: date,
-          total: 0,
           userDni: props.user,
           customerDni: dataSale.customerDni,
         })
@@ -217,7 +216,7 @@ function SaleWindow(props) {
   const bodyUpdateSale = (
     <Box sx={theme}>
       <h3>Editar venta</h3>
-      <TextField name="date" label="Fecha de la venta" sx={{width: '100%'}} onChange={handleChange} value={`${dataSale.date}`}/>
+      <TextField disabled name="date" label="Fecha de la venta" sx={{width: '100%'}} onChange={handleChange} value={`${formatDate(dataSale.date)}`}/>
       <TextField name="customerDni" label="Dni del cliente" sx={{width: '100%'}} onChange={handleChange} value={`${dataSale.customerDni}`}/>
       <h3>Lista de productos</h3>
       {products.map((product) => (

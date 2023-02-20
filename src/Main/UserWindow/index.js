@@ -154,6 +154,7 @@ function UserWindow() {
 
   function toggleAddModal() {
     setAddModal(!addModal);
+    restartDataUser();
   }
 
   function toggleUpdateModal() {
@@ -162,6 +163,18 @@ function UserWindow() {
 
   function toggleDeleteModal() {
     setDeleteModal(!deleteModal);
+  }
+
+  function restartDataUser() {
+    setDataUser({
+      dni: '',
+      lastName: '',
+      firstName: '',
+      username: '',
+      password: '',
+      sales: '',
+      roleId: ''
+    });
   }
 
   React.useEffect(() => {

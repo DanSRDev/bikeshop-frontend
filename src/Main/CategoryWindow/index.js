@@ -118,6 +118,7 @@ function CategoryWindow() {
 
   function toggleAddModal() {
     setAddModal(!addModal);
+    restartDataCategory();
   }
 
   function toggleUpdateModal() {
@@ -126,6 +127,13 @@ function CategoryWindow() {
 
   function toggleDeleteModal() {
     setDeleteModal(!deleteModal);
+  }
+
+  function restartDataCategory() {
+    setDataCategory({
+      id: '',
+      name: '',
+    });
   }
 
   React.useEffect(() => {

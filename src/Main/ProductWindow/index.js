@@ -151,6 +151,7 @@ function ProductWindow() {
 
   function toggleAddModal() {
     setAddModal(!addModal);
+    restartDataProduct();
   }
 
   function toggleUpdateModal() {
@@ -159,6 +160,18 @@ function ProductWindow() {
 
   function toggleDeleteModal() {
     setDeleteModal(!deleteModal);
+  }
+
+  function restartDataProduct() {
+    setDataProduct({
+      id: '',
+      name: '',
+      description: '',
+      stock: '',
+      price: '',
+      categoryId: '',
+      supplierId: ''
+    });
   }
 
   React.useEffect(() => {

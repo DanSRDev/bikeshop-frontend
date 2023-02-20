@@ -123,6 +123,7 @@ function SupplierWindow() {
 
   function toggleAddModal() {
     setAddModal(!addModal);
+    restartDataSupplier();
   }
 
   function toggleUpdateModal() {
@@ -131,6 +132,14 @@ function SupplierWindow() {
 
   function toggleDeleteModal() {
     setDeleteModal(!deleteModal);
+  }
+
+  function restartDataSupplier() {
+    setDataSupplier({
+      id: '',
+      name: '',
+      phone: ''
+    });
   }
 
   React.useEffect(() => {
