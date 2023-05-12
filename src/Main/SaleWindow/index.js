@@ -10,7 +10,7 @@ import "../Main.css";
 function SaleWindow(props) {
 
   const url = 'http://localhost:3001/api/v1/sales';
-  const urlItem = 'http://localhost:3001/api/v1/sales/add-item';
+  const urlItem = 'http://localhost:3001/api/v1/sales/item';
   const urlUser = `http://localhost:3001/api/v1/users/${props.user}`;
 
   const [sales, setSales] = React.useState([]);
@@ -89,6 +89,14 @@ function SaleWindow(props) {
     }
   }
 
+  async function updateItem(id, data) {
+    try {
+      await axios.patch(`${urlItem}/${id}`, data);
+    } catch (error) {
+      alert(error.response.data.message);
+    }
+  }
+
   async function createSale(data) {
     try {
       const sale = await axios.post(url, data);
@@ -115,10 +123,10 @@ function SaleWindow(props) {
     }
   }
 
-  async function updateUserSales() {
+  async function updateUserSales(amount) {
     try {
       const user = await axios.get(urlUser);
-      const sales = user.data.sales + 1;
+      const sales = user.data.sales + amount;
       await axios.patch(`${urlUser}`, {
         sales: sales
       });
@@ -138,9 +146,14 @@ function SaleWindow(props) {
   }
 
   async function deleteSale(id) {
-    await axios.delete(`${url}/${id}`);
-    setSales(sales.filter(sale => sale.id !== dataSale.id));
-    toggleDeleteModal();
+    try {
+      await axios.delete(`${url}/${id}`);
+      updateUserSales(-1);
+      setSales(sales.filter(sale => sale.id !== dataSale.id));
+      toggleDeleteModal();
+    } catch (error) {
+      alert('Error de conexion');
+    }
   }
   
   const theme = {
@@ -180,12 +193,16 @@ function SaleWindow(props) {
   }
 
   const addProduct = () => {
-    const newProductId = products[products.length - 1].id + 1;
-    setProducts([...products, {
-      id: newProductId,
-      productId: '',
-      amount: ''
-    }])
+    if (checkEmptyProduct()){
+      alert('Complete the products info');
+    } else {
+      const newProductId = products[products.length - 1].id + 1;
+      setProducts([...products, {
+        id: newProductId,
+        productId: '',
+        amount: ''
+      }])
+    }
   }
 
   async function verifySale() {
@@ -194,12 +211,17 @@ function SaleWindow(props) {
       alert('Fill in the fields');
     } else if (await checkProductExists()){
       if (checkDiferentProducts()) {
-        createSale({
-          date: date,
-          userDni: props.user,
-          customerDni: dataSale.customerDni,
-        })
-        updateUserSales();
+        try {
+          createSale({
+            date: date,
+            userDni: props.user,
+            customerDni: dataSale.customerDni,
+          })
+          updateUserSales(1);
+        } catch (error) {
+          alert('Error de conexion')
+        }
+        
       } else {
         alert('There is a duplicate product');
       }
@@ -238,16 +260,21 @@ function SaleWindow(props) {
       <h3>Lista de productos</h3>
       {products.map((product) => (
         <div style={{display: 'flex', gap: '10px'}} key={product.id}>
-          <TextField disabled name="productId" label="Id del producto" sx={{width: '100%'}} onChange={e => handleChangeProducts(e, product.id)} value={`${product.productId}`}/>
-          <TextField disabled name="amount" label="Cantidad" sx={{width: '100%'}} onChange={e => handleChangeProducts(e, product.id)} value={`${product.amount}`}/>
+          <TextField name="productId" label="Id del producto" sx={{width: '100%'}} onChange={e => handleChangeProducts(e, product.id)} value={`${product.productId}`}/>
+          <TextField name="amount" label="Cantidad" sx={{width: '100%'}} onChange={e => handleChangeProducts(e, product.id)} value={`${product.amount}`}/>
         </div>
       ))}
       <div align="right">
-        <Button color="primary" onClick={()=>updateSale(dataSale.id, {
+        <Button color="primary" onClick={()=> {
+          updateSale(dataSale.id, {
           date: dataSale.date,
-          total: dataSale.total,
           customerDni: dataSale.customerDni,
-        })}>Editar</Button>
+          })
+          products.map(product => updateItem(product.id, {
+            productId: product.productId,
+            amount:product.amount
+          }));
+        }}>Editar</Button>
         <Button onClick={()=>toggleUpdateModal()}>Cancelar</Button>
       </div>
     </Box>
