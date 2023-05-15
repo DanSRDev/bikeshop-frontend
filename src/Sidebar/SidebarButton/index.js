@@ -8,7 +8,8 @@ function SidebarButton(props) {
             props.setFalse()
             props.setWindow(true)
         }}>
-            <h1 className="button-text">{props.text}</h1>
+            {props.icon}
+            {props.expanded && <h1 className="button-text">{props.text}</h1>}
         </div>
     )
 }

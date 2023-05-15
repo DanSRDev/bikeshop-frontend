@@ -13,6 +13,17 @@ import { SupplierWindow } from './Main/SupplierWindow';
 import { CustomerWindow } from './Main/CustomerWindow';
 import { SaleWindow } from './Main/SaleWindow';
 
+// Icons
+import MenuIcon from '@mui/icons-material/Menu';
+import DirectionsBikeIcon from '@mui/icons-material/DirectionsBike';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import InventoryIcon from '@mui/icons-material/Inventory';
+import CategoryIcon from '@mui/icons-material/Category';
+import StoreIcon from '@mui/icons-material/Store';
+import GroupsIcon from '@mui/icons-material/Groups';
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
+
 import './App.css';
 
 function App() {
@@ -45,21 +56,26 @@ function App() {
   }
 
   const [user, setUser] = React.useState('');
+  const [expanded, setExpanded] = React.useState(true);
 
   React.useEffect(() => {
     setUser('12345678');
   }, [])
 
+  const toggleSidebar = () => {
+    setExpanded(!expanded);
+  };
+
   return (
     <div className="App">
-      <Sidebar>
-        <SidebarButton text='Usuarios' window={userActive} setWindow={setUserActive} setFalse={setFalseWindows}/>
-        <SidebarButton text='Roles' window={roleActive} setWindow={setRoleActive} setFalse={setFalseWindows}/>
-        <SidebarButton text='Productos' window={productActive} setWindow={setProductActive} setFalse={setFalseWindows}/>
-        <SidebarButton text='Categorias' window={categoryActive} setWindow={setCategoryActive} setFalse={setFalseWindows}/>
-        <SidebarButton text='Proveedores' window={supplierActive} setWindow={setSupplierActive} setFalse={setFalseWindows}/>
-        <SidebarButton text='Clientes' window={customerActive} setWindow={setCustomerActive} setFalse={setFalseWindows}/>
-        <SidebarButton text='Ventas' window={saleActive} setWindow={setSaleActive} setFalse={setFalseWindows}/>
+      <Sidebar expanded={expanded} menuIcon={<MenuIcon/>} logoIcon={<DirectionsBikeIcon/>} toggle={toggleSidebar}>
+        <SidebarButton text='Usuarios' window={userActive} setWindow={setUserActive} setFalse={setFalseWindows} icon={<AdminPanelSettingsIcon/>} expanded={expanded}/>
+        <SidebarButton text='Roles' window={roleActive} setWindow={setRoleActive} setFalse={setFalseWindows} icon={<AccountBoxIcon/>} expanded={expanded}/>
+        <SidebarButton text='Productos' window={productActive} setWindow={setProductActive} setFalse={setFalseWindows} icon={<InventoryIcon/>} expanded={expanded}/>
+        <SidebarButton text='Categorias' window={categoryActive} setWindow={setCategoryActive} setFalse={setFalseWindows} icon={<CategoryIcon/>} expanded={expanded}/>
+        <SidebarButton text='Proveedores' window={supplierActive} setWindow={setSupplierActive} setFalse={setFalseWindows} icon={<StoreIcon/>} expanded={expanded}/>
+        <SidebarButton text='Clientes' window={customerActive} setWindow={setCustomerActive} setFalse={setFalseWindows} icon={<GroupsIcon/>} expanded={expanded}/>
+        <SidebarButton text='Ventas' window={saleActive} setWindow={setSaleActive} setFalse={setFalseWindows} icon={<MonetizationOnIcon/>} expanded={expanded}/>
       </Sidebar>
       <Main>
         {userActive && <UserWindow />}

@@ -10,10 +10,12 @@
 
 .SidebarButton:hover {
     cursor: pointer;
+    background-color: #ace6ffb8;
 }
 
 .button-text {
     font-size: 24px;
+    margin-left: 5px;
 }
 
 .active {
