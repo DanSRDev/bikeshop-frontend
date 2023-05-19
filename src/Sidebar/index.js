@@ -8,7 +8,7 @@ function Sidebar(props) {
                 <div onClick={props.toggle} className='MenuButton'>
                     {props.menuIcon}
                 </div>
-                {props.expanded && <h1 className="Logo-name">Bikeshop</h1>}
+                {props.expanded && <h1 className="Logo-name unselectable">Bikeshop</h1>}
                 {props.expanded && props.logoIcon}
             </div>
             {props.children}
