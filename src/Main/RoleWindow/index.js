@@ -7,9 +7,9 @@ import { Box } from "@mui/system";
 import axios from "axios";
 import "../Main.css";
 
-function RoleWindow() {
+function RoleWindow(props) {
 
-  const url = 'http://localhost:3001/api/v1/roles';
+  const url = `${props.apiUrl}/api/v1/roles`;
 
   const [roles, setRoles] = React.useState([]);
 

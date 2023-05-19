@@ -12,6 +12,7 @@
 
 .AddButton:hover {
     cursor: pointer;
+    background-color: #ace6ffb8;
 }
 
 .AddButton p {

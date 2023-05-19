@@ -9,9 +9,10 @@ import "../Main.css";
 
 function SaleWindow(props) {
 
-  const url = 'http://localhost:3001/api/v1/sales';
-  const urlItem = 'http://localhost:3001/api/v1/sales/item';
-  const urlUser = `http://localhost:3001/api/v1/users/${props.user}`;
+  const url = `${props.apiUrl}/api/v1/sales`;
+  const urlItem = `${props.apiUrl}/api/v1/sales/item`;
+  const urlUser = `${props.apiUrl}/api/v1/users/${props.user}`;
+  const urlProducts = `${props.apiUrl}/api/v1/products`;
 
   const [sales, setSales] = React.useState([]);
 
@@ -326,7 +327,7 @@ function SaleWindow(props) {
 
   async function checkProductExists() {
     try {
-      const res = await axios.get('http://localhost:3001/api/v1/products');
+      const res = await axios.get(urlProducts);
       const dataProducts = res.data;
       return (products.every(product => dataProducts.some(data => data.id === parseInt(product.productId))));
     } catch (error) {

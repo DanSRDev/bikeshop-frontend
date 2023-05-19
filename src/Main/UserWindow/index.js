@@ -7,9 +7,9 @@ import { Box } from "@mui/system";
 import axios from "axios";
 import "../Main.css";
 
-function UserWindow() {
+function UserWindow(props) {
 
-  const url = 'http://localhost:3001/api/v1/users';
+  const url = `${props.apiUrl}/api/v1/users`;
 
   const [users, setUsers] = React.useState([]);
 

@@ -7,9 +7,9 @@ import { Box } from "@mui/system";
 import axios from "axios";
 import "../Main.css";
 
-function SupplierWindow() {
+function SupplierWindow(props) {
 
-  const url = 'http://localhost:3001/api/v1/suppliers';
+  const url = `${props.apiUrl}/api/v1/suppliers`;
 
   const [suppliers, setSuppliers] = React.useState([]);
 

@@ -54,13 +54,9 @@ function App() {
     setCustomerActive(false);
     setSaleActive(false);
   }
-
-  const [user, setUser] = React.useState('');
   const [expanded, setExpanded] = React.useState(true);
-
-  React.useEffect(() => {
-    setUser('12345678');
-  }, [])
+  const apiUrl = process.env.REACT_APP_API_URL;
+  const user = process.env.REACT_APP_USER;
 
   const toggleSidebar = () => {
     setExpanded(!expanded);
@@ -78,13 +74,13 @@ function App() {
         <SidebarButton text='Ventas' window={saleActive} setWindow={setSaleActive} setFalse={setFalseWindows} icon={<MonetizationOnIcon/>} expanded={expanded}/>
       </Sidebar>
       <Main>
-        {userActive && <UserWindow />}
-        {roleActive && <RoleWindow />}
-        {productActive && <ProductWindow />}
-        {categoryActive && <CategoryWindow />}
-        {supplierActive && <SupplierWindow />}
-        {customerActive && <CustomerWindow />}
-        {saleActive && <SaleWindow user={user}/>}
+        {userActive && <UserWindow apiUrl={apiUrl}/>}
+        {roleActive && <RoleWindow apiUrl={apiUrl}/>}
+        {productActive && <ProductWindow apiUrl={apiUrl}/>}
+        {categoryActive && <CategoryWindow apiUrl={apiUrl}/>}
+        {supplierActive && <SupplierWindow apiUrl={apiUrl}/>}
+        {customerActive && <CustomerWindow apiUrl={apiUrl}/>}
+        {saleActive && <SaleWindow apiUrl={apiUrl} user={user}/>}
       </Main>
     </div>
   )

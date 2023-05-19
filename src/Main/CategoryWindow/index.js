@@ -7,9 +7,9 @@ import { Box } from "@mui/system";
 import axios from "axios";
 import "../Main.css";
 
-function CategoryWindow() {
+function CategoryWindow(props) {
 
-  const url = 'http://localhost:3001/api/v1/categories';
+  const url = `${props.apiUrl}/api/v1/categories`;
 
   const [categories, setCategories] = React.useState([]);
 

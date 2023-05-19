@@ -7,9 +7,9 @@ import { Box } from "@mui/system";
 import axios from "axios";
 import "../Main.css";
 
-function ProductWindow() {
+function ProductWindow(props) {
 
-  const url = 'http://localhost:3001/api/v1/products';
+  const url = `${props.apiUrl}/api/v1/products`;
 
   const [products, setProducts] = React.useState([]);
 

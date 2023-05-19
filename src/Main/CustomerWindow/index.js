@@ -7,9 +7,9 @@ import { Box } from "@mui/system";
 import axios from "axios";
 import "../Main.css";
 
-function CustomerWindow() {
+function CustomerWindow(props) {
 
-  const url = 'http://localhost:3001/api/v1/customers';
+  const url = `${props.apiUrl}/api/v1/customers`;
 
   const [customers, setCustomers] = React.useState([]);
 
